@@ -3,26 +3,29 @@
 
 #include <QString>
 
+class Calculator {
+   public:
+    enum class CalculatorOperations {
+        EMPTY,
+        ADDITION,
+        SUBSTRACTION,
+        MULTIPLAY,
+        DIVISION
 
-class Calculator
-{
-public:
+    };
     Calculator();
 
-    int reset();
-    int digit (int d);
-    int operation(int o);
-    int calculate();
-    QString india();
+    int Reset();
+    int Digit(int d);
+    int Operation(CalculatorOperations operation);
+    int Calculate();
+    QString GetDisplayText();
 
-
-
-private:
+   private:
     double value1;
     double value2;
     double result;
-    int oper;
-
+    CalculatorOperations oper;
 };
 
-#endif // CALCULATOR_H
+#endif  // CALCULATOR_H

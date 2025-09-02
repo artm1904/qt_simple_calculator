@@ -2,55 +2,46 @@
 
 Calculator::Calculator() {}
 
-int Calculator::reset()
-{
-    value1 =0;
-    value2 =0;
-    oper =0;
-    result =0;
+int Calculator::Reset() {
+    value1 = 0;
+    value2 = 0;
+    oper = CalculatorOperations::EMPTY;
+    result = 0;
     return 0;
-
 }
 
-int Calculator::digit(int d)
-{
-    if (oper == 0){
-        value1 = value1 *10 +d;
+int Calculator::Digit(int d) {
+    if (oper == CalculatorOperations::EMPTY) {
+        value1 = value1 * 10 + d;
         result = value1;
-    }else {
-        value2 = value2 *10 +d;
+    } else {
+        value2 = value2 * 10 + d;
         result = value2;
     }
     return 0;
 }
 
-int Calculator::operation(int o)
-{
-    oper =o;
+int Calculator::Operation(Calculator::CalculatorOperations operation) {
+    oper = operation;
     return 0;
 }
 
-int Calculator::calculate()
-{
-    switch (oper){
-    case 1:
-        result=value1 + value2;
-        break;
-    case 2:
-        result=value1 - value2;
-        break;
-    case 3:
-        result=value1 * value2;
-        break;
-    case 4:
-        result=value1 / value2;
-        break;
+int Calculator::Calculate() {
+    switch (oper) {
+        case CalculatorOperations::ADDITION:
+            result = value1 + value2;
+            break;
+        case CalculatorOperations::DIVISION:
+            result = value1 - value2;
+            break;
+        case CalculatorOperations::MULTIPLAY:
+            result = value1 * value2;
+            break;
+        case CalculatorOperations::SUBSTRACTION:
+            result = value1 / value2;
+            break;
     }
     return 0;
 }
 
-QString Calculator::india()
-{
-    return QString::number(result);
-}
-
+QString Calculator::GetDisplayText() { return QString::number(result); }
