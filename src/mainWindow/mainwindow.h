@@ -19,11 +19,6 @@ class MainWindow : public QMainWindow {
     ~MainWindow();
 
    private slots:
-  
-   
-    void on_but_c_clicked();
-    void on_but_e_clicked();
-
     void digitButtonPressed();
     void operationButtonPressed();
 
