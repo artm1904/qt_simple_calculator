@@ -9,11 +9,16 @@ qt_standard_project_setup()
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "*.cpp")
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "*.h")
+file(GLOB_RECURSE UI_FILES CONFIGURE_DEPENDS "*.ui")
+file(GLOB_RECURSE RESOURCES CONFIGURE_DEPENDS "*.qrc")
 
 
 add_executable(${EXE_NAME} 
     ${SOURCES}
-    ${HEADERS})
+    ${HEADERS}
+    ${UI_FILES}
+    ${RESOURCES}
+    )
 
 
 

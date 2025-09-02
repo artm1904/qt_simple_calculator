@@ -1,127 +1,75 @@
-#include "../calculator/calculator.h"
+
 #include "mainwindow.h"
+
 #include "ui_mainwindow.h"
 
 Calculator calc;
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
-    calc.reset();
+    calc.Reset();
 
+    connect(ui->but_0, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_1, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_2, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_3, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_4, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_5, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_6, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_7, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_8, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+    connect(ui->but_9, &QPushButton::clicked, this, &MainWindow::digitButtonPressed);
+
+    connect(ui->but_a, &QPushButton::clicked, this, &MainWindow::operationButtonPressed);
+    connect(ui->but_s, &QPushButton::clicked, this, &MainWindow::operationButtonPressed);
+    connect(ui->but_m, &QPushButton::clicked, this, &MainWindow::operationButtonPressed);
+    connect(ui->but_d, &QPushButton::clicked, this, &MainWindow::operationButtonPressed);
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
+MainWindow::~MainWindow() { delete ui; }
+
+void MainWindow::digitButtonPressed() {
+    QObject *buttonObject = sender();
+    QPushButton *button = qobject_cast<QPushButton *>(buttonObject);
+
+    if (button) {
+        bool ok;
+        int digitValue = button->text().toInt(&ok);
+
+        if (ok) {
+            calc.Digit(digitValue);
+            ui->screen->setText(calc.GetDisplayText());
+        }
+    }
 }
 
-void MainWindow::on_but_0_clicked()
-{
-    calc.digit(0);
-    ui->screen->setText(calc.india());
+void MainWindow::operationButtonPressed() {
+    QObject *buttonObject = sender();
+    QPushButton *button = qobject_cast<QPushButton *>(buttonObject);
 
+    if (button) {
+        QString opText = button->text();
+        Calculator::CalculatorOperations op = Calculator::CalculatorOperations::EMPTY;
+
+        if (opText == "+") {
+            op = Calculator::CalculatorOperations::ADDITION;
+        } else if (opText == "-") {
+            op = Calculator::CalculatorOperations::SUBSTRACTION;
+        } else if (opText == "*") {
+            op = Calculator::CalculatorOperations::MULTIPLAY;
+        } else if (opText == "/") {
+            op = Calculator::CalculatorOperations::DIVISION;
+        }
+        calc.Operation(op);
+    }
 }
 
-void MainWindow::on_but_1_clicked()
-{
-    calc.digit(1);
-    ui->screen->setText(calc.india());
-
+void MainWindow::on_but_c_clicked() {
+    calc.Reset();
+    ui->screen->setText(calc.GetDisplayText());
 }
 
-void MainWindow::on_but_2_clicked()
-{
-    calc.digit(2);
-    ui->screen->setText(calc.india());
-
-}
-
-void MainWindow::on_but_3_clicked()
-{
-    calc.digit(3);
-    ui->screen->setText(calc.india());
-
-}
-
-void MainWindow::on_but_4_clicked()
-{
-    calc.digit(4);
-    ui->screen->setText(calc.india());
-
-}
-
-void MainWindow::on_but_5_clicked()
-{
-    calc.digit(5);
-    ui->screen->setText(calc.india());
-
-}
-void MainWindow::on_but_6_clicked()
-{
-    calc.digit(6);
-    ui->screen->setText(calc.india());
-
-}
-
-void MainWindow::on_but_7_clicked()
-{
-    calc.digit(7);
-    ui->screen->setText(calc.india());
-
-}
-
-void MainWindow::on_but_8_clicked()
-{
-    calc.digit(8);
-    ui->screen->setText(calc.india());
-
-}
-
-void MainWindow::on_but_9_clicked()
-{
-    calc.digit(9);
-    ui->screen->setText(calc.india());
-
-}
-
-void MainWindow::on_but_c_clicked()
-{
-    calc.reset();
-    ui->screen->setText(calc.india());
-
-}
-
-void MainWindow::on_but_a_clicked()
-{
-    calc.operation(1);
-
-}
-
-void MainWindow::on_but_s_clicked()
-{
-    calc.operation(2);
-
-}
-
-
-void MainWindow::on_but_m_clicked()
-{
-    calc.operation(3);
-
-}
-
-void MainWindow::on_but_d_clicked()
-{
-    calc.operation(4);
-
-}
-
-void MainWindow::on_but_e_clicked()
-{
-    calc.calculate();
-    ui->screen->setText(calc.india());
-
+void MainWindow::on_but_e_clicked() {
+    calc.Calculate();
+    ui->screen->setText(calc.GetDisplayText());
 }
