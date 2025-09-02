@@ -31,13 +31,13 @@ int Calculator::Calculate() {
         case CalculatorOperations::ADDITION:
             result = value1 + value2;
             break;
-        case CalculatorOperations::DIVISION:
+        case CalculatorOperations::SUBSTRACTION:
             result = value1 - value2;
             break;
         case CalculatorOperations::MULTIPLAY:
             result = value1 * value2;
             break;
-        case CalculatorOperations::SUBSTRACTION:
+        case CalculatorOperations::DIVISION:
             result = value1 / value2;
             break;
     }

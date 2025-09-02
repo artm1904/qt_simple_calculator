@@ -24,6 +24,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->but_s, &QPushButton::clicked, this, &MainWindow::operationButtonPressed);
     connect(ui->but_m, &QPushButton::clicked, this, &MainWindow::operationButtonPressed);
     connect(ui->but_d, &QPushButton::clicked, this, &MainWindow::operationButtonPressed);
+
+    connect(ui->but_e, &QPushButton::clicked, this, [this]() {
+        calc.Calculate();
+        ui->screen->setText(calc.GetDisplayText());
+    });
+
+    connect(ui->but_c, &QPushButton::clicked, this, [this]() {
+        calc.Reset();
+        ui->screen->setText(calc.GetDisplayText());
+    });
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -64,12 +74,3 @@ void MainWindow::operationButtonPressed() {
     }
 }
 
-void MainWindow::on_but_c_clicked() {
-    calc.Reset();
-    ui->screen->setText(calc.GetDisplayText());
-}
-
-void MainWindow::on_but_e_clicked() {
-    calc.Calculate();
-    ui->screen->setText(calc.GetDisplayText());
-}
