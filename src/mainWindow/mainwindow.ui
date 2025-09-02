@@ -45,14 +45,14 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="QPushButton" name="pushButton_8">
+      <widget class="QPushButton" name="but_mod">
        <property name="text">
         <string>mod</string>
        </property>
       </widget>
      </item>
      <item row="5" column="2">
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="but_percent">
        <property name="text">
         <string>%</string>
        </property>
@@ -86,7 +86,7 @@
       </widget>
      </item>
      <item row="1" column="4">
-      <widget class="QPushButton" name="pushButton_6">
+      <widget class="QPushButton" name="but_sqrt">
        <property name="text">
         <string>sqrt</string>
        </property>
@@ -110,7 +110,7 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="but_dot">
        <property name="text">
         <string>.</string>
        </property>
@@ -127,7 +127,7 @@
       </widget>
      </item>
      <item row="0" column="4">
-      <widget class="QPushButton" name="pushButton_7">
+      <widget class="QPushButton" name="but_pi">
        <property name="text">
         <string>pi</string>
        </property>
@@ -144,7 +144,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="but_r_bracket">
        <property name="text">
         <string>)</string>
        </property>
@@ -168,7 +168,7 @@
       </widget>
      </item>
      <item row="2" column="4">
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="but_x2">
        <property name="text">
         <string>x^2</string>
        </property>
@@ -202,7 +202,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="but_l_bracket">
        <property name="text">
         <string>(</string>
        </property>

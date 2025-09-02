@@ -34,6 +34,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         calc.Reset();
         ui->screen->setText(calc.GetDisplayText());
     });
+
+    connect(ui->but_dot, &QPushButton::clicked, this, [this](){
+        calc.AddDecimalPoint();
+    });
+
+    
 }
 
 MainWindow::~MainWindow() { delete ui; }

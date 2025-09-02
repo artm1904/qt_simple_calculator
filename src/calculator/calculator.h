@@ -17,15 +17,18 @@ class Calculator {
 
     int Reset();
     int Digit(int d);
+    void AddDecimalPoint();
     int Operation(CalculatorOperations operation);
     int Calculate();
     QString GetDisplayText();
 
    private:
-    double value1;
-    double value2;
-    double result;
-    CalculatorOperations oper;
+    double m_value1;
+    double m_value2;
+    double m_result;
+    CalculatorOperations m_oper;
+    bool m_isDecimalPart;
+    double m_decimalPlace;
 };
 
 #endif  // CALCULATOR_H
