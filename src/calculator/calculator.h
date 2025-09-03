@@ -13,6 +13,8 @@ class Calculator {
         DIVISION
 
     };
+
+    
     Calculator();
 
     int Reset();
@@ -22,14 +24,19 @@ class Calculator {
     int Operation(CalculatorOperations operation);
     int Calculate();
     QString GetDisplayText();
+    QString GetOperationSymbol();
     QMap<QString, CalculatorOperations>* GetOperations();
 
    private:
     double m_value1;
     double m_value2;
     double m_result;
-    CalculatorOperations m_oper;
+    QString m_displayString;
     bool m_isDecimalPart;
     double m_decimalPlace;
+    bool m_calculationDone;
     QMap<QString, CalculatorOperations> m_operations;
+
+   public:
+    CalculatorOperations oper;
 };
