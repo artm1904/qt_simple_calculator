@@ -18,6 +18,7 @@ class Calculator {
     int Reset();
     int Digit(int d);
     void AddDecimalPoint();
+    int ApplyUnaryOperation(const QString& operation);
     int Operation(CalculatorOperations operation);
     int Calculate();
     QString GetDisplayText();

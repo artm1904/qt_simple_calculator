@@ -19,8 +19,9 @@ class MainWindow : public QMainWindow {
     ~MainWindow();
 
    private slots:
-    void digitButtonPressed();
-    void operationButtonPressed();
+    void DigitButtonPressed();
+    void OperationButtonPressed();
+    void UnaryOperationPressed();
 
    private:
     Ui::MainWindow *ui;
