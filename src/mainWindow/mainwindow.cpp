@@ -7,21 +7,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     calc.Reset();
 
-    connect(ui->but_0, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_1, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_2, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_3, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_4, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_5, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_6, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_7, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_8, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
-    connect(ui->but_9, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
+    // Группируем кнопки с цифрами и подключаем их в цикле
+    const QList<QPushButton *> digitButtons = {ui->but_0, ui->but_1, ui->but_2, ui->but_3,
+                                               ui->but_4, ui->but_5, ui->but_6, ui->but_7,
+                                               ui->but_8, ui->but_9};
 
-    connect(ui->but_a, &QPushButton::clicked, this, &MainWindow::OperationButtonPressed);
-    connect(ui->but_s, &QPushButton::clicked, this, &MainWindow::OperationButtonPressed);
-    connect(ui->but_m, &QPushButton::clicked, this, &MainWindow::OperationButtonPressed);
-    connect(ui->but_d, &QPushButton::clicked, this, &MainWindow::OperationButtonPressed);
+    // Группируем кнопки бинарных операций
+    const QList<QPushButton *> operationButtons = {ui->but_a, ui->but_s, ui->but_m, ui->but_d};
+
+    // Группируем кнопки унарных операций
+    const QList<QPushButton *> unaryOperationButtons = {ui->but_sqrt, ui->but_x2, ui->but_percent};
+
+    for (QPushButton *button : digitButtons) {
+        connect(button, &QPushButton::clicked, this, &MainWindow::DigitButtonPressed);
+    }
+
+    for (QPushButton *button : operationButtons) {
+        connect(button, &QPushButton::clicked, this, &MainWindow::OperationButtonPressed);
+    }
+
+    for (QPushButton *button : unaryOperationButtons) {
+        connect(button, &QPushButton::clicked, this, &MainWindow::UnaryOperationPressed);
+    }
 
     connect(ui->but_e, &QPushButton::clicked, this, [this]() {
         if (calc.Calculate() != 0) {
@@ -37,10 +44,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     });
 
     connect(ui->but_dot, &QPushButton::clicked, this, [this]() { calc.AddDecimalPoint(); });
-
-    connect(ui->but_sqrt, &QPushButton::clicked, this, &MainWindow::UnaryOperationPressed);
-    connect(ui->but_x2, &QPushButton::clicked, this, &MainWindow::UnaryOperationPressed);
-    connect(ui->but_percent, &QPushButton::clicked, this, &MainWindow::UnaryOperationPressed);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -66,18 +69,11 @@ void MainWindow::OperationButtonPressed() {
 
     if (button) {
         QString opText = button->text();
-        Calculator::CalculatorOperations op = Calculator::CalculatorOperations::EMPTY;
 
-        if (opText == "+") {
-            op = Calculator::CalculatorOperations::ADDITION;
-        } else if (opText == "-") {
-            op = Calculator::CalculatorOperations::SUBSTRACTION;
-        } else if (opText == "*") {
-            op = Calculator::CalculatorOperations::MULTIPLAY;
-        } else if (opText == "/") {
-            op = Calculator::CalculatorOperations::DIVISION;
+        if (calc.GetOperations()->contains(opText)) {
+            calc.Operation(calc.GetOperations()->value(opText));
         }
-        calc.Operation(op);
+        ui->screen->setText(calc.GetDisplayText());
     }
 }
 
@@ -86,17 +82,8 @@ void MainWindow::UnaryOperationPressed() {
     QPushButton *button = qobject_cast<QPushButton *>(buttonObject);
 
     if (button) {
-        QString operationSymbol;
-
+        QString operationSymbol = m_unaryOperations.value(button->objectName());
         QString buttonName = button->objectName();
-
-        if (buttonName == "but_sqrt") {
-            operationSymbol = "sqrt";
-        } else if (buttonName == "but_x2") {
-            operationSymbol = "x^2";
-        } else if (buttonName == "but_percent") {
-            operationSymbol = "%";
-        }
 
         if (!operationSymbol.isEmpty()) {
             if (calc.ApplyUnaryOperation(operationSymbol) != 0) {

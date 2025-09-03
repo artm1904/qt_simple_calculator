@@ -1,6 +1,6 @@
-#ifndef CALCULATOR_H
-#define CALCULATOR_H
+#pragma once
 
+#include <QMap>
 #include <QString>
 
 class Calculator {
@@ -22,6 +22,7 @@ class Calculator {
     int Operation(CalculatorOperations operation);
     int Calculate();
     QString GetDisplayText();
+    QMap<QString, CalculatorOperations>* GetOperations();
 
    private:
     double m_value1;
@@ -30,6 +31,5 @@ class Calculator {
     CalculatorOperations m_oper;
     bool m_isDecimalPart;
     double m_decimalPlace;
+    QMap<QString, CalculatorOperations> m_operations;
 };
-
-#endif  // CALCULATOR_H

@@ -1,7 +1,7 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
+#include <QMap>
 
 #include "../calculator/calculator.h"
 
@@ -26,6 +26,7 @@ class MainWindow : public QMainWindow {
    private:
     Ui::MainWindow *ui;
     Calculator calc;
+    const QMap<QString, QString> m_unaryOperations = {
+        {"but_sqrt", "sqrt"}, {"but_x2", "x^2"}, {"but_percent", "%"}};
 };
 
-#endif  // MAINWINDOW_H

@@ -1,6 +1,13 @@
 #include "calculator.h"
 
-Calculator::Calculator() {}
+Calculator::Calculator() {
+    m_operations = {
+        {"+", CalculatorOperations::ADDITION},
+        {"-", CalculatorOperations::SUBSTRACTION},
+        {"*", CalculatorOperations::MULTIPLAY},
+        {"/", CalculatorOperations::DIVISION},
+    };
+}
 
 int Calculator::Reset() {
     m_value1 = 0.0;
@@ -34,6 +41,9 @@ int Calculator::Digit(int d) {
 }
 
 void Calculator::AddDecimalPoint() {
+    if (m_isDecimalPart) {
+        return;
+    }
     m_isDecimalPart = true;
     m_decimalPlace = 0.1;
 }
@@ -99,3 +109,7 @@ int Calculator::Calculate() {
 }
 
 QString Calculator::GetDisplayText() { return QString::number(m_result); }
+
+QMap<QString, Calculator::CalculatorOperations>* Calculator::GetOperations() {
+    return &m_operations;
+}
